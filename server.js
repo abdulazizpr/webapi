@@ -46,48 +46,49 @@ router.route("/users")
                         response = data;
                     }
                     
+                    res.json(response);
                 });
             }else{
                 response = data;
             }
-            
+
             res.json(response); 
          });  
         });
 
-        router.route("/users/:id")
-            .get(function(req,res){
-                var response = {};
-                Users.findById(req.params.id,function(err,data){
-                // This will run Mongo Query to fetch data based on ID.
-                    if(err) {
-                        response = {"error" : true,"message" : "Error fetching data"};
-                    } else {
-                        response = {"error" : false,"message" : data};
-                    }
-                    res.json(response);
-                });
-            })
-            .put(function(req,res){
-                var response = {};
-                // first find out record exists or not
-                // if it does then update the record
-
-                var query = {"_id": req.params.id};
-                var update = {username: req.body.username,points : req.body.points, latitude : req.body.latitude, longtitude : req.body.longtitude, user_status : req.body.status };
-                
-                var options = {new: true};
-
-                Users.findOneAndUpdate(query, update, options, function(err, person) {
-                    if (err) {
-                        response = {"error" : true,"message" : "Error fetching data"};
-                    }else{
-                        response = {"error" : false,"message" : "Data updated!"};
-                    }
-
-                    res.json(response);
-                });
+    router.route("/users/:id")
+        .get(function(req,res){
+            var response = {};
+            Users.findById(req.params.id,function(err,data){
+            // This will run Mongo Query to fetch data based on ID.
+                if(err) {
+                    response = {"error" : true,"message" : "Error fetching data"};
+                } else {
+                    response = {"error" : false,"message" : data};
+                }
+                res.json(response);
             });
+        })
+        .put(function(req,res){
+            var response = {};
+            // first find out record exists or not
+            // if it does then update the record
+
+            var query = {"_id": req.params.id};
+            var update = {username: req.body.username,points : req.body.points, latitude : req.body.latitude, longtitude : req.body.longtitude, user_status : req.body.status };
+            
+            var options = {new: true};
+
+            Users.findOneAndUpdate(query, update, options, function(err, person) {
+                if (err) {
+                    response = {"error" : true,"message" : "Error fetching data"};
+                }else{
+                    response = {"error" : false,"message" : "Data updated!"};
+                }
+
+                res.json(response);
+            });
+        });
 
 router.get("/",function(req,res){
     res.json({"error" : false,"message" : "Hello World"});

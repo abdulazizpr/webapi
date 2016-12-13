@@ -25,25 +25,34 @@ router.route("/users")
         })
      })
      .post(function(req,res){
-            var db = new Users();
+         Users.findOne({username : req.body.username},function(err,data){
             var response = {};
             
-            // fetch email and password from REST request.
-            // Add strict validation when you use this in Production.
-            db.username = req.body.username; 
-            db.latitude = "";
-            db.longtitude = "";
+            if(!data){
+                var db = new Users();
+                
+                // fetch email and password from REST request.
+                // Add strict validation when you use this in Production.
+                db.username = req.body.username; 
+                db.latitude = "";
+                db.longtitude = "";
+                
+                db.save(function(err,data){
+                // save() will run insert() command of MongoDB.
+                // it will add new data in collection.
+                    if(err) {
+                        response = {"error" : true,"message" : "Error adding data"};
+                    } else {
+                        response = data;
+                    }
+                    
+                });
+            }else{
+                response = data;
+            }
             
-            db.save(function(err){
-            // save() will run insert() command of MongoDB.
-            // it will add new data in collection.
-                if(err) {
-                    response = {"error" : true,"message" : "Error adding data"};
-                } else {
-                    response = {"error" : false,"message" : "Data added"};
-                }
-                res.json(response);
-            });
+            res.json(response); 
+         });  
         });
 
         router.route("/users/:id")

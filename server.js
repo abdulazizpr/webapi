@@ -91,27 +91,27 @@ router.route("/users")
             });
         });
 
-        router.route("/users/logout/:id")
-            .put(function(req,res){
-            var response = {};
-            // first find out record exists or not
-            // if it does then update the record
+        router.route("/users/logout/")
+            .post(function(req,res){
+                var response = {};
+                // first find out record exists or not
+                // if it does then update the record
 
-            var query = {"_id": req.params.id};
-            var update = {user_status : 0 };
-            
-            var options = {new: true};
+                var query = {"_id": req.body.id};
+                var update = {user_status : 0 };
+                
+                var options = {new: true};
 
-            Users.findOneAndUpdate(query, update, options, function(err, person) {
-                if (err) {
-                    response = {"error" : true,"message" : "Error fetching data"};
-                }else{
-                    response = {"error" : false,"message" : "Logout"};
-                }
+                Users.findOneAndUpdate(query, update, options, function(err, person) {
+                    if (err) {
+                        response = {"error" : true,"message" : "Error fetching data"};
+                    }else{
+                        response = {"error" : false,"message" : "Logout"};
+                    }
 
-                res.json(response);
+                    res.json(response);
+                });
             });
-        });
 
 router.get("/",function(req,res){
     res.json({"error" : false,"message" : "Hello World"});

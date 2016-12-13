@@ -82,7 +82,7 @@ router.route("/users")
                     response = {"error" : true,"message" : "Error fetching data"};
                 } else {
                     if(data.length > 0){
-                        response = data;
+                        response = {data_online : data};
                     }else{
                         response = {"error" : true,"message" : "Error! no users online"};
                     }

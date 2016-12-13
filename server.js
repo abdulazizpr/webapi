@@ -104,13 +104,13 @@ router.route("/users")
                 res.json(response);
             });
         })
-        .put(function(req,res){
+        .post(function(req,res){
             var response = {};
             // first find out record exists or not
             // if it does then update the record
 
             var query = {"_id": req.params.id};
-            var update = {username: req.body.username,points : req.body.points, latitude : req.body.latitude, longtitude : req.body.longtitude, user_status : req.body.status };
+            var update = { latitude : req.body.latitude, longtitude : req.body.longtitude };
             
             var options = {new: true};
 

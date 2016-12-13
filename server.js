@@ -49,8 +49,24 @@ router.route("/users")
                     res.json(response);
                 });
             }else{
-                response = data;
-                res.json(response);
+
+                var query = {"username": req.body.username};
+                var update = {user_status : 1 };
+                
+                var options = {new: true};
+
+                Users.findOneAndUpdate(query, update, options, function(err, data) {
+                    if (err) {
+                        response = {"error" : true,"message" : "Error fetching data"};
+                    }else{
+                        response = data
+                    }
+
+                    res.json(response);
+                });
+
+                //response = data;
+                //res.json(response);
             }
 
             

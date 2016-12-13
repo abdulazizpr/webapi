@@ -98,7 +98,7 @@ router.route("/users")
             // if it does then update the record
 
             var query = {"_id": req.params.id};
-            var update = {user_status : req.body.status };
+            var update = {user_status : 0 };
             
             var options = {new: true};
 

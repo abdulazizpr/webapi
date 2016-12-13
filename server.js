@@ -84,7 +84,7 @@ router.route("/users")
                     if(data.length > 0){
                         response = data;
                     }else{
-                        response = {"error" : true,"message" : "Error! data not found"};
+                        response = {"error" : true,"message" : "Error! no users online"};
                     }
                 }
                 res.json(response);

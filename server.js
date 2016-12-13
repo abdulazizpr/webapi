@@ -45,14 +45,15 @@ router.route("/users")
                     } else {
                         response = data;
                     }
-                    
+
                     res.json(response);
                 });
             }else{
                 response = data;
+                res.json(response);
             }
 
-            res.json(response); 
+            
          });  
         });
 

@@ -73,6 +73,24 @@ router.route("/users")
          });  
         });
 
+    router.route("/users/online")
+        .get(function(req,res){
+            var response = {};
+            Users.find({user_status : 1},function(err,data){
+            // Mongo command to fetch all data from collection.
+                if(err) {
+                    response = {"error" : true,"message" : "Error fetching data"};
+                } else {
+                    if(data.length > 0){
+                        response = data;
+                    }else{
+                        response = {"error" : true,"message" : "Error! data not found"};
+                    }
+                }
+                res.json(response);
+            })
+        })
+
     router.route("/users/:id")
         .get(function(req,res){
             var response = {};
